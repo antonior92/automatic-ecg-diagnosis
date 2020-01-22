@@ -1,0 +1,4 @@
+,1dAVb,RBBB,LBBB,SB,AF,ST
+DNN vs Cert. cardiol. 1,0.758,0.928,0.964,0.770,0.696,0.847
+DNN vs Certif. cardiol. 2,0.852,0.942,1.000,0.770,0.746,0.884
+Cert. cardiol. 1 vs Certif. cardiol. 2,0.741,0.955,0.964,0.844,0.831,0.902
