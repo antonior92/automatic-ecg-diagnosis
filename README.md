@@ -1,4 +1,4 @@
-# Automatic ECG diagnosis using deep neural network
+# Automatic ECG diagnosis using a deep neural network
 Scripts and modules for training and testing deep neural networks for ECG automatic classification.
 Companion code to the paper "Automatic Diagnosis of the Short-Duration12-Lead ECG using a Deep Neural Network".
 
@@ -7,7 +7,7 @@ Companion code to the paper "Automatic Diagnosis of the Short-Duration12-Lead EC
 ```bash
 $ python train.py PATH_TO_HDF5 PATH_TO_CSV
 ```
-Pre-trained models obtained using such script can be downloaded from [here](https://doi.org/10.5281/zenodo.3625018)
+Pre-trained models obtained using such script can be downloaded from [here](https://doi.org/10.5281/zenodo.3625017)
 
 
 - ``predict.py``: Script for generating the neural network predictions on a given dataset.
@@ -15,8 +15,8 @@ Pre-trained models obtained using such script can be downloaded from [here](http
 $ python predict.py --tracings PATH_TO_HDF5_ECG_TRACINGS --model PATH_TO_MODEL  --ouput_file PATH_TO_OUTPUT_FILE 
 ```
 The folder `./dnn_predicts` contain the output obtained by applying this script to the models available in
-[here](https://doi.org/10.5281/zenodo.3625018) to make the predictions on tracings from 
-[this test dataset](https://doi.org/10.5281/zenodo.3625027).
+[here](https://doi.org/10.5281/zenodo.3625017) to make the predictions on tracings from 
+[this test dataset](10.5281/zenodo.3625006).
 
 
 - ``generate_figures_and_tables.py``: Generate figures and tables from the paper "Automatic Diagnosis o

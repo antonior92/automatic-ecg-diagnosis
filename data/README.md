@@ -15,7 +15,7 @@ It contain annotations about 6 different ECGs abnormalities:
 ## Folder content:
 
 - `ecg_tracings.hdf5`:  this file is not available on github repository because of the size. But it can be downloaded
-[here](10.5281/zenodo.3625027). The HDF5 file containing a single dataset named `tracings`. This dataset is a 
+[here](10.5281/zenodo.3625006). The HDF5 file containing a single dataset named `tracings`. This dataset is a 
 `(827, 4096, 12)` tensor. The first dimension correspond to the 827 different exams from different 
 patients; the second dimension correspond to the 4096 signal samples; the third dimension to the 12
 different leads of the ECG exam. 

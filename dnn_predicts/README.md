@@ -42,5 +42,5 @@ done
 ```
 
 Where the `DFOLDER` should give the path to the folder containing the test dataset and `MFOLDER` should point to the 
-folder containing pre-trained models. The test dataset can be downloaded from [here](10.5281/zenodo.3625027) and the
-pretrained models can be downloade from here [here]()
+folder containing pre-trained models. The test dataset can be downloaded from [here](10.5281/zenodo.3625006) and the
+pretrained models can be downloaded from here [here](10.5281/zenodo.3625017)
