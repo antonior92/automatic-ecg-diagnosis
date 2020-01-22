@@ -16,7 +16,7 @@ $ python predict.py --tracings PATH_TO_HDF5_ECG_TRACINGS --model PATH_TO_MODEL  
 ```
 The folder `./dnn_predicts` contain the output obtained by applying this script to the models available in
 [here](https://doi.org/10.5281/zenodo.3625017) to make the predictions on tracings from 
-[this test dataset](10.5281/zenodo.3625006).
+[this test dataset](https://doi.org/10.5281/zenodo.3625006).
 
 
 - ``generate_figures_and_tables.py``: Generate figures and tables from the paper "Automatic Diagnosis o
