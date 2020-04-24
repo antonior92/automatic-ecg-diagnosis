@@ -40,23 +40,22 @@ $ python model.py
 
 ![resnet](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41467-020-15432-4/MediaObjects/41467_2020_15432_Fig3_HTML.png?as=webp)
 
-The model receives a input tensor with dimension `(N, 4096, 12)`, and returns an output tensor with dimension `(N, 6)`,
+The model receives an input tensor with dimension `(N, 4096, 12)`, and returns an output tensor with dimension `(N, 6)`,
 for which `N` is the batch size.
 
-The model can be trained using the script `train.py`. But pre-trained weighs for the models described in the paper
-are also available in: https://doi.org/10.5281/zenodo.3625017. These models have been trained on a significantly larger
-training dataset (described in the paper).
+The model can be trained using the script `train.py`. Alternatively, pre-trained weighs for the models described in the paper
+are also available in: https://doi.org/10.5281/zenodo.3625017. 
 
 - **input**: `shape = (N, 4096, 12)`. The input tensor should contain the  `4096` points of the ECG tracings
 sampled at `400Hz` (i.e., a signal of approximately 10 seconds). Both in the training and in the test set, when the
-signal was not long enough, we filled the signal with zeros so 4096 points were attained. The last dimension of the 
-tensor contain points of the 12 different leads. The leads are ordered in the following order: 
+signal was not long enough, we filled the signal with zeros, so 4096 points were attained. The last dimension of the 
+tensor contains points of the 12 different leads. The leads are ordered in the following order: 
 `{DI, DII, DIII, AVL, AVF, AVR, V1, V2, V3, V4, V5, V6}`.
 
 
-- **output**: `shape = (N, 6)`. Each entry contain a probability between 0 and 1, and can be understood as the
+- **output**: `shape = (N, 6)`. Each entry contains a probability between 0 and 1, and can be understood as the
 probability of a given abnormality to be present. The abnormalities it predicts are  **(in that order)**: 1st degree AV block(1dAVb),
- right bundle branch block (RBBB), left bundle branch block (LBBB), sinus bradycardia (SB), atrial fibrilation (AF),
+ right bundle branch block (RBBB), left bundle branch block (LBBB), sinus bradycardia (SB), atrial fibrillation (AF),
 sinus tachycardia (ST).  The abnormalities are not mutually exclusive, so the probabilities do not necessarily
 sum to one. 
 
