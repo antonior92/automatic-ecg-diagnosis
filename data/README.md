@@ -2,7 +2,8 @@
 
 Contain 827 ECG tracings from different patients, annotated by several cardiologists, residents and medical students.
 It is used as test set on the paper:
-"Automatic Diagnosis of the Short-Duration12-Lead ECG using a Deep Neural Network".
+"Automatic diagnosis of the 12-lead ECG using a deep neural network".
+ https://www.nature.com/articles/s41467-020-15432-4.
 
 It contain annotations about 6 different ECGs abnormalities:
 - 1st degree AV block (1dAVb);
@@ -12,13 +13,41 @@ It contain annotations about 6 different ECGs abnormalities:
 - atrial fibrillation (AF); and,
 - sinus tachycardia (ST).
 
+Companion python scripts are available in:
+https://github.com/antonior92/automatic-ecg-diagnosis
+
+--------
+
+Citation
+```
+Ribeiro, A.H., Ribeiro, M.H., Paixão, G.M.M. et al. Automatic diagnosis of the 12-lead ECG using a deep neural network.
+Nat Commun 11, 1760 (2020). https://doi.org/10.1038/s41467-020-15432-4
+```
+
+Bibtex:
+```
+@article{ribeiro_automatic_2020,
+  title = {Automatic Diagnosis of the 12-Lead {{ECG}} Using a Deep Neural Network},
+  author = {Ribeiro, Ant{\^o}nio H. and Ribeiro, Manoel Horta and Paix{\~a}o, Gabriela M. M. and Oliveira, Derick M. and Gomes, Paulo R. and Canazart, J{\'e}ssica A. and Ferreira, Milton P. S. and Andersson, Carl R. and Macfarlane, Peter W. and Meira Jr., Wagner and Sch{\"o}n, Thomas B. and Ribeiro, Antonio Luiz P.},
+  year = {2020},
+  volume = {11},
+  pages = {1760},
+  doi = {https://doi.org/10.1038/s41467-020-15432-4},
+  journal = {Nature Communications},
+  number = {1}
+}
+```
+-----
+
+
 ## Folder content:
 
 - `ecg_tracings.hdf5`:  this file is not available on github repository because of the size. But it can be downloaded
 [here](https://doi.org/10.5281/zenodo.3625006). The HDF5 file containing a single dataset named `tracings`. This dataset is a 
 `(827, 4096, 12)` tensor. The first dimension correspond to the 827 different exams from different 
 patients; the second dimension correspond to the 4096 signal samples; the third dimension to the 12
-different leads of the ECG exam. 
+different leads of the ECG exams in the following order:
+ `{DI, DII, DIII, AVL, AVF, AVR, V1, V2, V3, V4, V5, V6}`.
 
 The signals are sampled at 400 Hz. Some signals originally have a duration of 
 10 seconds (10 * 400 = 4000 samples) and others of 7 seconds (7 * 400 = 2800 samples).

@@ -50,7 +50,9 @@ are also available in: https://doi.org/10.5281/zenodo.3625017.
 sampled at `400Hz` (i.e., a signal of approximately 10 seconds). Both in the training and in the test set, when the
 signal was not long enough, we filled the signal with zeros, so 4096 points were attained. The last dimension of the 
 tensor contains points of the 12 different leads. The leads are ordered in the following order: 
-`{DI, DII, DIII, AVL, AVF, AVR, V1, V2, V3, V4, V5, V6}`.
+`{DI, DII, DIII, AVL, AVF, AVR, V1, V2, V3, V4, V5, V6}`. All signal are represented as
+32 bits floating point numbers at the scale 1e-4V: so if the signal is in V it should be multiplied by 
+1000 before feeding it to the neural network model. 
 
 
 - **output**: `shape = (N, 6)`. Each entry contains a probability between 0 and 1, and can be understood as the
