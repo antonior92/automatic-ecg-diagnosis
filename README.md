@@ -28,8 +28,8 @@ Bibtex:
 
 ## Requirements
 
-This code was tested on `Tensorflow == 1.15.2` and `Keras==2.1.6`. It was not updated to work with Tensorflow 2.0
-and above. Please check `requirements.txt`.
+This code was tested on Python 3 with `Tensorflow == 1.15.2` and `Keras==2.2.4`. It was not updated to work with 
+Tensorflow 2.0 and above. Please check `requirements.txt`.
 
 ## Model
 
