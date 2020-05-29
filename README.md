@@ -43,8 +43,7 @@ $ python model.py
 The model receives an input tensor with dimension `(N, 4096, 12)`, and returns an output tensor with dimension `(N, 6)`,
 for which `N` is the batch size.
 
-The model can be trained using the script `train.py`. Alternatively, pre-trained weighs for the models described in the paper
-are also available in: https://doi.org/10.5281/zenodo.3625017. 
+The model can be trained using the script `train.py`. Alternatively, pre-trained weighs for the models described in the paper are also available in: https://doi.org/10.5281/zenodo.3625017 (or in the mirror dropbox link [here](https://www.dropbox.com/s/5ar6j8u9v9a0rmh/model.zip?dl=0)). 
 
 - **input**: `shape = (N, 4096, 12)`. The input tensor should contain the  `4096` points of the ECG tracings
 sampled at `400Hz` (i.e., a signal of approximately 10 seconds). Both in the training and in the test set, when the
@@ -66,7 +65,8 @@ sum to one.
 ## Test data
 
 The testing dataset described in the paper can be downloaded from:
-https://doi.org/10.5281/zenodo.3625006.
+https://doi.org/10.5281/zenodo.3625006 (or in the mirror
+dropbox link [here](https://www.dropbox.com/s/p3vd3plcbu9sf1o/data.zip?dl=0)).
 
 
 ## Training data
