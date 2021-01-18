@@ -1,7 +1,7 @@
 numpy>=1.14.3
 pandas>=0.22
 Keras==2.2.4
-tensorflow==1.15.4
+tensorflow==2.4.0
 h5py>=2.8
 xmljson>=0.1.9
 scipy>=1.1
