@@ -113,27 +113,30 @@ class ResidualUnit(object):
 
 
 # ----- Model ----- #
-kernel_size = 16
-kernel_initializer = 'he_normal'
-signal = Input(shape=(4096, 12), dtype=np.float32, name='signal')
-x = signal
-x = Conv1D(64, kernel_size, padding='same', use_bias=False,
-           kernel_initializer=kernel_initializer)(x)
-x = BatchNormalization()(x)
-x = Activation('relu')(x)
-x, y = ResidualUnit(1024, 128, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, x])
-x, y = ResidualUnit(256, 196, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, y])
-x, y = ResidualUnit(64, 256, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, y])
-x, _ = ResidualUnit(16, 320, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, y])
-x = Flatten()(x)
-diagn = Dense(6, activation='sigmoid', kernel_initializer=kernel_initializer)(x)
-model = Model(signal, diagn)
+def get_model(n_classes):
+    kernel_size = 16
+    kernel_initializer = 'he_normal'
+    signal = Input(shape=(4096, 12), dtype=np.float32, name='signal')
+    x = signal
+    x = Conv1D(64, kernel_size, padding='same', use_bias=False,
+               kernel_initializer=kernel_initializer)(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x, y = ResidualUnit(1024, 128, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, x])
+    x, y = ResidualUnit(256, 196, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, y])
+    x, y = ResidualUnit(64, 256, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, y])
+    x, _ = ResidualUnit(16, 320, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, y])
+    x = Flatten()(x)
+    diagn = Dense(n_classes, activation='sigmoid', kernel_initializer=kernel_initializer)(x)
+    model = Model(signal, diagn)
+    return model
 # ----------------- #
 
 
 if __name__ == "__main__":
+    model = get_model(6)
     model.summary()

@@ -1,7 +1,7 @@
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import (ModelCheckpoint, TensorBoard, ReduceLROnPlateau,
                                         CSVLogger, EarlyStopping)
-from model import model
+from model import get_model
 import argparse
 from datasets import ECGSequence
 
@@ -30,13 +30,14 @@ if __name__ == "__main__":
                                    min_lr=lr / 100),
                  EarlyStopping(patience=9,  # Patience should be larger than the one in ReduceLROnPlateau
                                min_delta=0.00001)]
-    # If you are continuing an interrupted section, uncomment line bellow:
-    #   model = keras.models.load_model(PATH_TO_PREV_MODEL, compile=False)
-    model.compile(loss=loss, optimizer=opt)
 
     train_seq, valid_seq = ECGSequence.get_train_and_val(
         args.path_to_hdf5, args.dataset_name, args.path_to_csv, batch_size, args.val_split)
 
+    # If you are continuing an interrupted section, uncomment line bellow:
+    #   model = keras.models.load_model(PATH_TO_PREV_MODEL, compile=False)
+    model = get_model(train_seq.n_classes)
+    model.compile(loss=loss, optimizer=opt)
     # Create log
     callbacks += [TensorBoard(log_dir='./logs', write_graph=False),
                   CSVLogger('training.log', append=False)]  # Change append to true if continuing training

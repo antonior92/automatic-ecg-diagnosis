@@ -29,6 +29,10 @@ class ECGSequence(Sequence):
         self.start_idx = start_idx
         self.end_idx = end_idx
 
+    @property
+    def n_classes(self):
+        return self.y.shape[1]
+
     def __getitem__(self, idx):
         start = self.start_idx + idx * self.batch_size
         end = min(start + self.batch_size, self.end_idx)
