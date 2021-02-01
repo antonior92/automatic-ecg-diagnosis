@@ -28,8 +28,8 @@ Bibtex:
 
 ## Requirements
 
-This code was tested on Python 3 with `Tensorflow == 1.15.2` and `Keras==2.2.4`. It was not updated to work with 
-Tensorflow 2.0 and above. Please check `requirements.txt`.
+This code was tested on Python 3 with Tensorflow `2.4`. There is an older branch (`tensorflow-v1`) that 
+contain the code implementation in for Tensorflow `1.15`.
 
 ## Model
 
@@ -87,7 +87,7 @@ Pre-trained models obtained using such script can be downloaded from [here](http
 
 - ``predict.py``: Script for generating the neural network predictions on a given dataset.
 ```bash
-$ python predict.py --tracings PATH_TO_HDF5_ECG_TRACINGS --model PATH_TO_MODEL  --ouput_file PATH_TO_OUTPUT_FILE 
+$ python predict.py PATH_TO_HDF5_ECG_TRACINGS PATH_TO_MODEL  --ouput_file PATH_TO_OUTPUT_FILE 
 ```
 The folder `./dnn_predicts` contain the output obtained by applying this script to the models available in
 [here](https://doi.org/10.5281/zenodo.3625017) to make the predictions on tracings from 

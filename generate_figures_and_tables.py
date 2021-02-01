@@ -10,6 +10,7 @@ import xarray as xr
 from scipy.stats.distributions import chi2
 from itertools import combinations
 
+
 # %% Auxiliar functions
 def get_scores(y_true, y_pred, score_fun):
     nclasses = np.shape(y_true)[1]
