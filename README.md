@@ -28,7 +28,7 @@ Bibtex:
 
 ## Requirements
 
-This code was tested on Python 3 with Tensorflow `2.2`. There is an older branch (`tensorflow-v1`) that 
+This code was tested on Python 3 with Tensorflow `2.2`. There is an older branch ([`tensorflow-v1`](https://github.com/antonior92/automatic-ecg-diagnosis/tree/tensorflow-v1)) that 
 contain the code implementation for Tensorflow `1.15`.
 
 ## Model
