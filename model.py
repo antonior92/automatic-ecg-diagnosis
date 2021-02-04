@@ -12,7 +12,7 @@ class ResidualUnit(object):
         Number of output samples.
     n_filters_out: int
         Number of output filters.
-    kernel_initializer: str, otional
+    kernel_initializer: str, optional
         Initializer for the weights matrices. See Keras initializers. By default it uses
         'he_normal'.
     dropout_keep_prob: float [0, 1), optional
@@ -46,7 +46,7 @@ class ResidualUnit(object):
         self.n_samples_out = n_samples_out
         self.n_filters_out = n_filters_out
         self.kernel_initializer = kernel_initializer
-        self.dropout_rate =  1 - dropout_keep_prob
+        self.dropout_rate = 1 - dropout_keep_prob
         self.kernel_size = kernel_size
         self.preactivation = preactivation
         self.postactivation_bn = postactivation_bn
@@ -112,8 +112,7 @@ class ResidualUnit(object):
         return [x, y]
 
 
-# ----- Model ----- #
-def get_model(n_classes):
+def get_model(n_classes, last_layer='sigmoid'):
     kernel_size = 16
     kernel_initializer = 'he_normal'
     signal = Input(shape=(4096, 12), dtype=np.float32, name='signal')
@@ -131,10 +130,9 @@ def get_model(n_classes):
     x, _ = ResidualUnit(16, 320, kernel_size=kernel_size,
                         kernel_initializer=kernel_initializer)([x, y])
     x = Flatten()(x)
-    diagn = Dense(n_classes, activation='sigmoid', kernel_initializer=kernel_initializer)(x)
+    diagn = Dense(n_classes, activation=last_layer, kernel_initializer=kernel_initializer)(x)
     model = Model(signal, diagn)
     return model
-# ----------------- #
 
 
 if __name__ == "__main__":
