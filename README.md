@@ -102,7 +102,7 @@ $ cd /path/to/automatic-ecg-diagnosis
 ```
 Then the script
  ```bash
-$ python generate_figures_and_tables
+$ python generate_figures_and_tables.py
 ```
 It should generate the tables and figure in the folder `outputs/`
 
