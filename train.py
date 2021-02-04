@@ -1,16 +1,9 @@
-import sys
-import tensorflow as tf
-from keras.optimizers import Adam
-from keras.callbacks import (ModelCheckpoint,
-                             TensorBoard, ReduceLROnPlateau,
-                             CSVLogger, EarlyStopping)
-from keras.backend.tensorflow_backend import set_session
-from model import model
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import (ModelCheckpoint, TensorBoard, ReduceLROnPlateau,
+                                        CSVLogger, EarlyStopping)
+from model import get_model
 import argparse
-from keras.utils import HDF5Matrix
-import pandas as pd
-import h5py
-import numpy as np
+from datasets import ECGSequence
 
 if __name__ == "__main__":
     # Get data and train
@@ -37,34 +30,26 @@ if __name__ == "__main__":
                                    min_lr=lr / 100),
                  EarlyStopping(patience=9,  # Patience should be larger than the one in ReduceLROnPlateau
                                min_delta=0.00001)]
-    # Set session and compile model
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    set_session(tf.Session(config=config))
+
+    train_seq, valid_seq = ECGSequence.get_train_and_val(
+        args.path_to_hdf5, args.dataset_name, args.path_to_csv, batch_size, args.val_split)
+
     # If you are continuing an interrupted section, uncomment line bellow:
     #   model = keras.models.load_model(PATH_TO_PREV_MODEL, compile=False)
+    model = get_model(train_seq.n_classes)
     model.compile(loss=loss, optimizer=opt)
-    # Get annotations
-    y = pd.read_csv(args.path_to_csv).values
-    # Get tracings
-    f = h5py.File(args.path_to_hdf5, "r")
-    x = f[args.dataset_name]
-
     # Create log
-    callbacks += [TensorBoard(log_dir='./logs', batch_size=batch_size, write_graph=False),
+    callbacks += [TensorBoard(log_dir='./logs', write_graph=False),
                   CSVLogger('training.log', append=False)]  # Change append to true if continuing training
     # Save the BEST and LAST model
     callbacks += [ModelCheckpoint('./backup_model_last.hdf5'),
                   ModelCheckpoint('./backup_model_best.hdf5', save_best_only=True)]
     # Train neural network
-    history = model.fit(x, y,
-                        batch_size=batch_size,
+    history = model.fit(train_seq,
                         epochs=70,
                         initial_epoch=0,  # If you are continuing a interrupted section change here
-                        validation_split=args.val_split,
-                        shuffle='batch',  # Because our dataset is an HDF5 file
                         callbacks=callbacks,
+                        validation_data=valid_seq,
                         verbose=1)
     # Save final result
     model.save("./final_model.hdf5")
-    f.close()

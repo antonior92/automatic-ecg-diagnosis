@@ -10,6 +10,7 @@ import xarray as xr
 from scipy.stats.distributions import chi2
 from itertools import combinations
 
+
 # %% Auxiliar functions
 def get_scores(y_true, y_pred, score_fun):
     nclasses = np.shape(y_true)[1]
@@ -92,14 +93,14 @@ predictor_names = ['DNN', 'cardio.', 'emerg.', 'stud.']
 
 # %% Read datasets
 # Get two annotators
-y_cardiologist1 = pd.read_csv('./data/csv_files/cardiologist1.csv').values
-y_cardiologist2 = pd.read_csv('./data/csv_files/cardiologist2.csv').values
+y_cardiologist1 = pd.read_csv('./data/annotations/cardiologist1.csv').values
+y_cardiologist2 = pd.read_csv('./data/annotations/cardiologist2.csv').values
 # Get true values
-y_true = pd.read_csv('./data/csv_files/gold_standard.csv').values
+y_true = pd.read_csv('./data/annotations/gold_standard.csv').values
 # Get residents and students performance
-y_cardio = pd.read_csv('./data/csv_files/cardiology_residents.csv').values
-y_emerg = pd.read_csv('./data/csv_files/emergency_residents.csv').values
-y_student = pd.read_csv('./data/csv_files/medical_students.csv').values
+y_cardio = pd.read_csv('./data/annotations/cardiology_residents.csv').values
+y_emerg = pd.read_csv('./data/annotations/emergency_residents.csv').values
+y_student = pd.read_csv('./data/annotations/medical_students.csv').values
 # get y_score for different models
 y_score_list = [np.load('./dnn_predicts/other_seeds/model_' + str(i+1) + '.npy') for i in range(10)]
 
@@ -119,7 +120,7 @@ y_score_best = y_score_list[k_dnn_best]
 _, _, threshold = get_optimal_precision_recall(y_true, y_score_best)
 mask = y_score_best > threshold
 # Get neural network prediction
-# This data was also saved in './data/csv_files/dnn.csv'
+# This data was also saved in './data/annotations/dnn.csv'
 y_neuralnet = np.zeros_like(y_score_best)
 y_neuralnet[mask] = 1
 y_neuralnet[mask] = 1

@@ -15,7 +15,7 @@ DFOLDER="./data"
 
 # To generate the predictions on the test set corresponding to the main model used allong the paper use:
 
-python predict.py --tracings $DFOLDER/ecg_tracings.hdf5 --model $MFOLDER/model.hdf5 --output_file $PFOLDER/model.npy
+python predict.py $DFOLDER/ecg_tracings.hdf5 $MFOLDER/model.hdf5 --output_file $PFOLDER/model.npy
 
 
 # We also train several networks with the same architecture and configuration
@@ -25,7 +25,7 @@ python predict.py --tracings $DFOLDER/ecg_tracings.hdf5 --model $MFOLDER/model.h
 mkdir $FNAME/other_seeds
 for n in 1 2 3 4 5 6 7 8 9 10
 do
-python predict.py --tracings $DFOLDER/ecg_tracings.hdf5 --model $MFOLDER/other_seeds/model_$n.hdf5 --output_file $PFOLDER/other_seeds/model_$n.npy
+python predict.py $DFOLDER/ecg_tracings.hdf5 $MFOLDER/other_seeds/model_$n.hdf5 --output_file $PFOLDER/other_seeds/model_$n.npy
 done
 
 
@@ -37,7 +37,7 @@ done
 mkdir $PFOLDER/other_splits
 for n in date_order individual_patients normal_order
 do
-python predict.py --tracings $DFOLDER/ecg_tracings.hdf5 --model $MFOLDER/other_splits/model_$n.hdf5 --output_file $PFOLDER/other_splits/model_$n.npy
+python predict.py $DFOLDER/ecg_tracings.hdf5 $MFOLDER/other_splits/model_$n.hdf5 --output_file $PFOLDER/other_splits/model_$n.npy
 done
 ```
 

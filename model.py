@@ -1,7 +1,6 @@
-from keras.layers import (Input, Conv1D, MaxPooling1D, Dropout,
-                          BatchNormalization, Activation, Add,
-                          Flatten, Dense)
-from keras.models import Model
+from tensorflow.keras.layers import (
+    Input, Conv1D, MaxPooling1D, Dropout, BatchNormalization, Activation, Add, Flatten, Dense)
+from tensorflow.keras.models import Model
 import numpy as np
 
 
@@ -13,10 +12,10 @@ class ResidualUnit(object):
         Number of output samples.
     n_filters_out: int
         Number of output filters.
-    kernel_initializer: str, otional
+    kernel_initializer: str, optional
         Initializer for the weights matrices. See Keras initializers. By default it uses
         'he_normal'.
-    dropout_rate: float [0, 1), optional
+    dropout_keep_prob: float [0, 1), optional
         Dropout rate used in all Dropout layers. Default is 0.8
     kernel_size: int, optional
         Kernel size for convolutional layers. Default is 17.
@@ -42,12 +41,12 @@ class ResidualUnit(object):
     """
 
     def __init__(self, n_samples_out, n_filters_out, kernel_initializer='he_normal',
-                 dropout_rate=0.8, kernel_size=17, preactivation=True,
+                 dropout_keep_prob=0.8, kernel_size=17, preactivation=True,
                  postactivation_bn=False, activation_function='relu'):
         self.n_samples_out = n_samples_out
         self.n_filters_out = n_filters_out
         self.kernel_initializer = kernel_initializer
-        self.dropout_rate = dropout_rate
+        self.dropout_rate = 1 - dropout_keep_prob
         self.kernel_size = kernel_size
         self.preactivation = preactivation
         self.postactivation_bn = postactivation_bn
@@ -82,9 +81,9 @@ class ResidualUnit(object):
     def __call__(self, inputs):
         """Residual unit."""
         x, y = inputs
-        n_samples_in = y.shape[1].value
+        n_samples_in = y.shape[1]
         downsample = n_samples_in // self.n_samples_out
-        n_filters_in = y.shape[2].value
+        n_filters_in = y.shape[2]
         y = self._skip_connection(y, downsample, n_filters_in)
         # 1st layer
         x = Conv1D(self.n_filters_out, self.kernel_size, padding='same',
@@ -113,30 +112,29 @@ class ResidualUnit(object):
         return [x, y]
 
 
-# ----- Model ----- #
-kernel_size = 16
-kernel_initializer = 'he_normal'
-signal = Input(shape=(4096, 12), dtype=np.float32, name='signal')
-age_range = Input(shape=(6,), dtype=np.float32, name='age_range')
-is_male = Input(shape=(1,), dtype=np.float32, name='is_male')
-x = signal
-x = Conv1D(64, kernel_size, padding='same', use_bias=False,
-           kernel_initializer=kernel_initializer)(x)
-x = BatchNormalization()(x)
-x = Activation('relu')(x)
-x, y = ResidualUnit(1024, 128, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, x])
-x, y = ResidualUnit(256, 196, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, y])
-x, y = ResidualUnit(64, 256, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, y])
-x, _ = ResidualUnit(16, 320, kernel_size=kernel_size,
-                    kernel_initializer=kernel_initializer)([x, y])
-x = Flatten()(x)
-diagn = Dense(6, activation='sigmoid', kernel_initializer=kernel_initializer)(x)
-model = Model(signal, diagn)
-# ----------------- #
+def get_model(n_classes, last_layer='sigmoid'):
+    kernel_size = 16
+    kernel_initializer = 'he_normal'
+    signal = Input(shape=(4096, 12), dtype=np.float32, name='signal')
+    x = signal
+    x = Conv1D(64, kernel_size, padding='same', use_bias=False,
+               kernel_initializer=kernel_initializer)(x)
+    x = BatchNormalization()(x)
+    x = Activation('relu')(x)
+    x, y = ResidualUnit(1024, 128, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, x])
+    x, y = ResidualUnit(256, 196, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, y])
+    x, y = ResidualUnit(64, 256, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, y])
+    x, _ = ResidualUnit(16, 320, kernel_size=kernel_size,
+                        kernel_initializer=kernel_initializer)([x, y])
+    x = Flatten()(x)
+    diagn = Dense(n_classes, activation=last_layer, kernel_initializer=kernel_initializer)(x)
+    model = Model(signal, diagn)
+    return model
 
 
 if __name__ == "__main__":
+    model = get_model(6)
     model.summary()
