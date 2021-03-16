@@ -116,8 +116,9 @@ print(np.array(micro_avg_precision)[index])
 # get 6th best model (immediatly above median) out 10 different models
 k_dnn_best = index[5]
 y_score_best = y_score_list[k_dnn_best]
-# Get threshold that yield the best precision recall
-_, _, threshold = get_optimal_precision_recall(y_true, y_score_best)
+# Get threshold that yield the best precision recall using "get_optimal_precision_recall" on validation set
+#   (we rounded it up to three decimal cases to make it easier to read...)
+threshold = np.array([0.124, 0.07, 0.05, 0.278, 0.390, 0.174])
 mask = y_score_best > threshold
 # Get neural network prediction
 # This data was also saved in './data/annotations/dnn.csv'
