@@ -84,9 +84,7 @@ unzip data.zip
 
 ## Training data
 
-Restrictions apply to the availability of the training set used in the paper. Requests to access the training data will
-be considered on an individual basis by the Telehealth Network of Minas Gerais.
-https://forms.gle/BLoBCfTFkaDw7KGq5.
+Part of the training data is now openly available in https://doi.org/10.5281/zenodo.4916206.
 
 
 ## Scripts
