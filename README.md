@@ -31,6 +31,9 @@ Bibtex:
 This code was tested on Python 3 with Tensorflow `2.2`. There is an older branch ([`tensorflow-v1`](https://github.com/antonior92/automatic-ecg-diagnosis/tree/tensorflow-v1)) that 
 contain the code implementation for Tensorflow `1.15`.
 
+**For pytorch users:** If you are interested in a pytorch implementation, take a look in the repository: https://github.com/antonior92/ecg-age-prediction. 
+There we provide a implementation in PyTorch of the same resnet-based model. The problem there is the age prediction from the ECG, nontheless simple modifications should suffice for dealing with abnormality classification.
+
 ## Model
 
 The model used in the paper is a residual neural. The neural network architecture implementation in Keras is available in ``model.py``. To print a summary of the model layers run:
@@ -70,22 +73,18 @@ sum to one.
 
 ![abnormalities](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41467-020-15432-4/MediaObjects/41467_2020_15432_Fig1_HTML.png?as=webp)
 
-## Test data
+## Datasets
 
-The testing dataset described in the paper can be downloaded from:
-https://doi.org/10.5281/zenodo.3625006. Or in the mirror
+- The testing dataset described in the paper can be downloaded in:
+[doi: 10.5281/zenodo.3625006](https://doi.org/10.5281/zenodo.3625006). There is also  a mirror
 dropbox link [here](https://www.dropbox.com/s/p3vd3plcbu9sf1o/data.zip?dl=0). 
 Using the command line:
 ```
 wget https://www.dropbox.com/s/p3vd3plcbu9sf1o/data.zip?dl=0 -O data.zip
 unzip data.zip
 ```
-
-
-## Training data
-
-Part of the training data is now openly available in https://doi.org/10.5281/zenodo.4916206.
-
+- Part of the training data (the CODE-15\% dataset) is openly available in: [doi: 10.5281/zenodo.4916206 ](https://doi.org/10.5281/zenodo.4916206).
+- The full CODE dataset that was used for training is available upon request for research purposes: [doi: 10.17044/scilifelab.15169716](https://doi.org/10.17044/scilifelab.15169716)
 
 ## Scripts
 
