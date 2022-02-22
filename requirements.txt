@@ -1,6 +1,6 @@
 numpy>=1.14.3
 pandas>=0.22
-tensorflow=2.2
+tensorflow==2.2
 h5py>=2.8
 xmljson>=0.1.9
 scipy>=1.1
